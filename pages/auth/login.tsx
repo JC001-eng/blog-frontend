@@ -5,17 +5,28 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [username, setUsername] = useState<string | null>(null);
 
-  const handleLogin = async (e) => {
+  interface LoginResponse {
+    token: string;
+    username: string;
+  }
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await api.post("/sessions", { email, password });
-      const { token } = response.data;
+      const response = await api.post<LoginResponse>("/sessions", {
+        email,
+        password,
+      });
+      const { token, username } = response.data;
       localStorage.setItem("token", token);
-      setMessage("Logged in successfully!");
-    } catch (error) {
-      setMessage(error.response.data.error || "Invalid credentials.");
+
+      setUsername(username);
+      setMessage(`Welcome, ${username}!`);
+    } catch (error: any) {
+      setMessage(error.response?.data?.error || "Invalid credentials.");
     }
   };
 

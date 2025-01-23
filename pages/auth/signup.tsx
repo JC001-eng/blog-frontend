@@ -1,20 +1,27 @@
 import React from "react";
 import api from "../../services/api";
+import { useRouter } from "next/router";
 
-const SignUp = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [message, setMessage] = React.useState("");
-  const [username, setUsername] = React.useState("");
+const SignUp: React.FC = () => {
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [message, setMessage] = React.useState<string>("");
+  const [username, setUsername] = React.useState<string>("");
 
-  const handleSignUp = async (e) => {
+  const router = useRouter();
+
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const response = await api.post("/users", {
         user: { username, email, password },
       });
-      setMessage("Account created successfully!  Please log in.");
+      const { token, username: responseUsername } = response.data;
+
+      localStorage.setItem("token", token);
+      router.push("/dashboard");
+      setMessage(`Welcome, ${responseUsername}!`);
     } catch (error) {
       setMessage(error.response.data.error || "An error occurred");
     }
