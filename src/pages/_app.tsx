@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { LoadingScreenContainer } from "../components/LoadingScreen.styles";
+import LoadingScreen from "../components/LoadingScreen";
 
 const App: React.FC<{ Component: React.ElementType; pageProps: any }> = ({
   Component,
@@ -26,7 +26,7 @@ const App: React.FC<{ Component: React.ElementType; pageProps: any }> = ({
 
   return (
     <>
-      {isLoading && <LoadingScreenContainer />}
+      {isLoading && <LoadingScreen />}
       <Component {...pageProps} />
     </>
   );
