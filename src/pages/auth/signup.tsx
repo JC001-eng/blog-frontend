@@ -1,6 +1,7 @@
 import React from "react";
 import api from "../../services/api";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = React.useState<string>("");
@@ -16,7 +17,7 @@ const SignUp: React.FC = () => {
     user_id: string;
   }
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -26,11 +27,13 @@ const SignUp: React.FC = () => {
       const { token, username: responseUsername } = response.data;
 
       localStorage.setItem("token", token);
-      router.push({
+      await router.push({
         pathname: `/dashboard/${responseUsername}`,
       });
     } catch (error) {
-      setMessage(error.response.data.error || "An error occurred");
+      if (axios.isAxiosError(error) && error.response) {
+        setMessage(error.response.data.error || "An error occurred");
+      }
     }
   };
 

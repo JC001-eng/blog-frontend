@@ -11,10 +11,10 @@ const Dashboard: React.FC = () => {
       if (username) {
         setUsername(username);
       } else {
-        router.push("/auth/login");
+        void router.push("/auth/login");
       }
     }
-  }, [router.isReady, router.query]);
+  }, [router, router.isReady, router.query]);
 
   if (!username) return <p>Loading...</p>;
 

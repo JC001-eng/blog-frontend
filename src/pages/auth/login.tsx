@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import api from "../../services/api";
 import { useRouter } from "next/router";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [username, setUsername] = useState<string | null>(null);
   const router = useRouter();
 
   interface LoginResponse {
@@ -15,7 +14,9 @@ const Login = () => {
     user_id: string;
   }
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -26,8 +27,7 @@ const Login = () => {
       const { token, username: responseUsername } = response.data;
       localStorage.setItem("token", token);
 
-      setUsername(responseUsername);
-      router.push({
+      await router.push({
         pathname: `/dashboard/${responseUsername}`,
       });
     } catch (error: any) {

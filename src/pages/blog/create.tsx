@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "../../services/api";
 import withAuth from "../auth/withAuth";
 
@@ -8,13 +9,15 @@ const CreatePost: React.FC = () => {
   const [content, setContent] = React.useState<string>("");
   const [message, setMessage] = React.useState<string>("");
 
-  const handleCreatePost = async (e: { preventDefault: () => void }) => {
+  const handleCreatePost = async (e: {
+    preventDefault: () => void;
+  }): Promise<void> => {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
 
     try {
-      const response = await api.post(
+      await api.post(
         "/posts",
         { post: { title, content } },
         {
@@ -25,7 +28,9 @@ const CreatePost: React.FC = () => {
       );
       setMessage("Post created successfully!");
     } catch (error) {
-      setMessage(error.response.data.error || "An error occurred");
+      if (axios.isAxiosError(error) && error.response) {
+        setMessage(error.response.data.error || "An error occurred");
+      }
     }
   };
 

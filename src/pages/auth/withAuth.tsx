@@ -7,15 +7,21 @@ interface WithAuthProps {
   [key: string]: any;
 }
 
-const withAuth = (WrappedComponent: React.ComponentType<any>) => {
-  const ComponentWithAuth = (props: WithAuthProps) => {
+const withAuth = (
+  WrappedComponent: React.ComponentType<any>
+): React.FC<WithAuthProps> => {
+  const ComponentWithAuth = (props: WithAuthProps): JSX.Element => {
     const router = useRouter();
 
     useEffect(() => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        router.push("/auth/login");
+        (async (): Promise<void> => {
+          await router.push("/auth/login");
+        })().catch((error) => {
+          console.error("Failed to navigate to login:", error);
+        });
       }
     }, [router]);
 

@@ -16,7 +16,7 @@ const BlogPost: React.FC = () => {
   useEffect(() => {
     if (!id) return;
 
-    const fetchPost = async () => {
+    const fetchPost = async (): Promise<void> => {
       try {
         const response = await api.get<Post>(`/posts/${id}`);
         setPost(response.data);
@@ -25,7 +25,7 @@ const BlogPost: React.FC = () => {
       }
     };
 
-    fetchPost();
+    fetchPost().catch((error) => console.error(error));
   }, [id]);
 
   if (error) return <p>{error}</p>;
@@ -38,3 +38,5 @@ const BlogPost: React.FC = () => {
     </div>
   );
 };
+
+export default BlogPost;
