@@ -10,18 +10,25 @@ const SignUp: React.FC = () => {
 
   const router = useRouter();
 
+  interface SignInResponse {
+    token: string;
+    username: string;
+    user_id: string;
+  }
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await api.post("/users", {
+      const response = await api.post<SignInResponse>("/users", {
         user: { username, email, password },
       });
       const { token, username: responseUsername } = response.data;
 
       localStorage.setItem("token", token);
-      router.push("/dashboard");
-      setMessage(`Welcome, ${responseUsername}!`);
+      router.push({
+        pathname: `/dashboard/${responseUsername}`,
+      });
     } catch (error) {
       setMessage(error.response.data.error || "An error occurred");
     }
