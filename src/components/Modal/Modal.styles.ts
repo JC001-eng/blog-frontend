@@ -16,10 +16,23 @@ export const ModalContainer = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }): string => (isOpen ? "flex" : "none")};
 `;
 
-export const ModalContent = styled.div``;
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  position: relative;
 
-export const CloseModalButton = styled.button`
-  position: absolute;
-  top: 10px; 
-  right: 10px;
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
 `;
