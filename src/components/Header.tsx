@@ -3,7 +3,14 @@ import React from "react";
 export default function Header(): JSX.Element {
   return (
     <header>
-      <h1>Header</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="../pages/auth/"></a>
+          </li>
+          <li></li>
+        </ul>
+      </nav>
     </header>
   );
 }
