@@ -1,21 +1,24 @@
 import React from "react";
 import { ModalContainer, ModalContent } from "./Modal.styles";
 
-const Modal: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
 
-  const handleModalClose = (): void => {
-    setIsOpen(false);
-  };
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+  if (!isOpen) return null;
 
   return (
     <ModalContainer isOpen={isOpen}>
-      <button className="close" onClick={handleModalClose}>
+      <button className="close" onClick={onClose}>
         x
       </button>
       <ModalContent>
-        <h2>Modal</h2>
-        <p>This is a modal</p>
+        {title && <h2>{title}</h2>}
+        {children}
       </ModalContent>
     </ModalContainer>
   );
