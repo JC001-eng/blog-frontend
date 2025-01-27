@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 interface ModalContainerProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
-export const ModalContainer = styled.div.attrs<ModalContainerProps>(() => ({
+export const ModalContainer = styled.div.attrs(() => ({
   role: "dialog",
 }))<ModalContainerProps>`
   position: fixed;
@@ -18,7 +18,7 @@ export const ModalContainer = styled.div.attrs<ModalContainerProps>(() => ({
   justify-content: center;
   align-items: center;
   transition: opacity 0.5s;
-  display: ${({ isOpen }): string => (isOpen ? "flex" : "none")};
+  display: ${({ $isOpen }): string => ($isOpen ? "flex" : "none")};
 `;
 
 export const ModalContent = styled.div`

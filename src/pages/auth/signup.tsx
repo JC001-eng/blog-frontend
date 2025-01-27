@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSignUp}>
+    <form name="Sign up" onSubmit={handleSignUp}>
       <input
         type="username"
         placeholder="username"
