@@ -13,10 +13,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 
   return (
     <ModalContainer isOpen={isOpen}>
-      <button className="close" onClick={onClose}>
-        x
-      </button>
       <ModalContent>
+        <button className="close" onClick={onClose}>
+          x
+        </button>
         {title && <h2>{title}</h2>}
         {children}
       </ModalContent>

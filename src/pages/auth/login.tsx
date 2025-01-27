@@ -37,7 +37,6 @@ const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleLogin}>
-      <h1>Log In</h1>
       <input
         type="email"
         placeholder="email"
