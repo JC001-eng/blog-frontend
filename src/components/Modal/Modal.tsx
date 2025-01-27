@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <ModalContainer isOpen={isOpen}>
+    <ModalContainer $isOpen={isOpen}>
       <ModalContent>
         <button className="close" onClick={onClose}>
           x
