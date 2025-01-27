@@ -1,6 +1,8 @@
 export default {
   reactStrictMode: true,
-
+  compiler: {
+    styledComponents: true, // Enable SWC support for styled-components
+  },
   async rewrites() {
     return [
       {
