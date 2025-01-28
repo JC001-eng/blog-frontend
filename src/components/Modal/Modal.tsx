@@ -11,11 +11,17 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
+  const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>): void => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <ModalContainer $isOpen={isOpen}>
+    <ModalContainer $isOpen={isOpen} onClick={handleCloseModal}>
       <ModalContent>
         <button className="close" onClick={onClose}>
-          x
+          &times;
         </button>
         {title && <h2>{title}</h2>}
         {children}

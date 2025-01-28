@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../../services/api";
 import { useRouter } from "next/router";
+import { AccountButton } from "./AuthModal.styles";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,11 @@ const Login: React.FC = () => {
   ): Promise<void> => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setMessage("Please, fill all fields.");
+      return;
+    }
+
     try {
       const response = await api.post<LoginResponse>("/sessions", {
         email,
@@ -31,12 +37,18 @@ const Login: React.FC = () => {
         pathname: `/dashboard/${responseUsername}`,
       });
     } catch (error: any) {
-      setMessage(error.response?.data?.error || "Invalid credentials.");
+      if (error.response?.data?.error_code === "INVALID_CREDENTIALS") {
+        setMessage(
+          error.response?.data?.error ||
+            "Invalid email or password. Please, try again."
+        );
+      }
     }
   };
 
   return (
     <form name="Login" onSubmit={handleLogin}>
+      <p>Email</p>
       <input
         type="email"
         placeholder="email"
@@ -46,6 +58,7 @@ const Login: React.FC = () => {
         }}
         required
       />
+      <p>Password</p>
       <input
         type="password"
         placeholder="password"
@@ -55,7 +68,7 @@ const Login: React.FC = () => {
         }}
         required
       />
-      <button type="submit">Log In</button>
+      <AccountButton type="submit">Log In</AccountButton>
       {message && <p>{message}</p>}
     </form>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import api from "../../services/api";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { AccountButton } from "./AuthModal.styles";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = React.useState<string>("");
@@ -39,6 +40,7 @@ const SignUp: React.FC = () => {
 
   return (
     <form name="Sign up" onSubmit={handleSignUp}>
+      <p>Name</p>
       <input
         type="username"
         placeholder="username"
@@ -48,12 +50,14 @@ const SignUp: React.FC = () => {
         }}
         required
       />
+      <p>Email</p>
       <input
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <p>Password</p>
       <input
         type="password"
         placeholder="Password"
@@ -61,7 +65,7 @@ const SignUp: React.FC = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button type="submit">Sign Up</button>
+      <AccountButton type="submit">Sign Up</AccountButton>
       {message && <p>{message}</p>}
     </form>
   );
