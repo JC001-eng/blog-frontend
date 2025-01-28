@@ -31,13 +31,47 @@ export const ModalContent = styled.div`
   text-align: center;
   position: relative;
 
+  h2 {
+    margin: 24px auto 0;
+  }
+
   .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
     background: transparent;
     border: none;
-    font-size: 18px;
+    font-size: 30px;
     cursor: pointer;
+  }
+
+  p {
+    text-align: left;
+    margin: 20px 0 0;
+    font-size: 0.85rem;
+    color: rgb(138, 138, 138);
+
+    &.centered {
+      text-align: center;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 0 0 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    &.btnLink {
+      color: #0077cc;
+      background: none;
+      border: transparent;
+      font-size: 0.9rem;
+    }
   }
 `;

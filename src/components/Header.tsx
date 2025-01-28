@@ -1,16 +1,12 @@
 import React from "react";
-import Modal from "./Modal/Modal";
-import Login from "../pages/auth/login";
-import SignUp from "../pages/auth/signup";
+import AuthModal from "./AuthModal/AuthModal";
 import { useState } from "react";
 
 export default function Header(): JSX.Element {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [view, setView] = useState<"login" | "signup">("login");
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-  const handleOpenModal = (view: "login" | "signup"): void => {
-    setIsModalOpen(true);
-    setView(view);
+  const toggleAuthModal = (): void => {
+    setIsAuthModalOpen((prev) => !prev);
   };
 
   return (
@@ -20,31 +16,15 @@ export default function Header(): JSX.Element {
           <li>
             <button
               onClick={() => {
-                handleOpenModal("login");
+                toggleAuthModal();
               }}
             >
-              Login
+              Login / Signup
             </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                handleOpenModal("signup");
-              }}
-            >
-              Sign Up
-            </button>
+            <AuthModal isOpen={isAuthModalOpen} onClose={toggleAuthModal} />
           </li>
         </ul>
       </nav>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title={view === "login" ? "Login" : "Sign Up"}
-      >
-        {view === "login" && <Login />}
-        {view === "signup" && <SignUp />}
-      </Modal>
     </header>
   );
 }
