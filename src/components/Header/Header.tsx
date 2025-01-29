@@ -1,6 +1,7 @@
 import React from "react";
-import AuthModal from "./AuthModal/AuthModal";
+import AuthModal from "../AuthModal/AuthModal";
 import { useState } from "react";
+import { StyledHeader } from "./Header.styles";
 
 export default function Header(): JSX.Element {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -10,8 +11,9 @@ export default function Header(): JSX.Element {
   };
 
   return (
-    <header>
+    <StyledHeader>
       <nav>
+        <p>general public</p>
         <ul>
           <li>
             <button
@@ -19,12 +21,12 @@ export default function Header(): JSX.Element {
                 toggleAuthModal();
               }}
             >
-              Login / Signup
+              Login
             </button>
             <AuthModal isOpen={isAuthModalOpen} onClose={toggleAuthModal} />
           </li>
         </ul>
       </nav>
-    </header>
+    </StyledHeader>
   );
 }

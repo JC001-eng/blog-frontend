@@ -44,16 +44,18 @@ export const ModalContent = styled.div`
     border: none;
     font-size: 30px;
     cursor: pointer;
+    color: #111;
   }
 
   p {
     text-align: left;
-    margin: 20px 0 0;
+    margin: 16px 0 0;
     font-size: 0.85rem;
     color: rgb(138, 138, 138);
 
     &.centered {
       text-align: center;
+      color: #333;
     }
   }
 
@@ -72,6 +74,7 @@ export const ModalContent = styled.div`
       background: none;
       border: transparent;
       font-size: 0.9rem;
+      padding: 0 4px;
     }
   }
 `;
