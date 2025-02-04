@@ -1,7 +1,10 @@
 export default {
   reactStrictMode: true,
+  env: {
+    API_URL: process.env.API_URL,
+  },
   compiler: {
-    styledComponents: true, // Enable SWC support for styled-components
+    styledComponents: true,
   },
   async rewrites() {
     return [

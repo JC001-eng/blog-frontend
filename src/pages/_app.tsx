@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../components/Loading/LoadingScreen";
 import "../styles/global.css";
 
 const App: React.FC<{ Component: React.ElementType; pageProps: any }> = ({
