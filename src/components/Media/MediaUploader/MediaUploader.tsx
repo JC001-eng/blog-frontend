@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { MediaUploaderContainer } from "./MediaUploader.styles";
+import AddMediaIcon from "../../../assets/icons/AddMediaIcon";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 const MAX_VIDEO_SIZE = 50 * 1024 * 1024;
@@ -72,9 +74,18 @@ const MediaUploader: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Upload Media</h2>
-      <input type="file" accept="image/*,video/*" onChange={handleFileUpload} />
+    <MediaUploaderContainer>
+      <label className="file-upload">
+        <input
+          title="media uploader"
+          type="file"
+          accept="image/*,video/*"
+          onChange={handleFileUpload}
+        />
+        <span>
+          <AddMediaIcon />
+        </span>
+      </label>
       {error && <p>{error}</p>}
       {message && <p>{message}</p>}
       {file && (
@@ -82,7 +93,7 @@ const MediaUploader: React.FC = () => {
           upload image
         </button>
       )}
-    </div>
+    </MediaUploaderContainer>
   );
 };
 

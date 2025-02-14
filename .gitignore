@@ -31,3 +31,4 @@ webpack-stats.json
 .parcel-cache/
 
 node_modules/
+.next/
