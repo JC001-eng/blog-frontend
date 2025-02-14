@@ -27,10 +27,18 @@ export const PostContainer = styled.div`
     border-radius: 8px;
     text-align: center;
 
+    &::placeholder {
+      color: #fff;
+    }
+
     &:focus,
     &:active {
       outline: 1px solid #fff;
       background-color: #fff;
+
+      &::placeholder {
+        color: #f9f9f9;
+      }
     }
   }
 `;

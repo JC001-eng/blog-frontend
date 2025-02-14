@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 import MediaUploader from "../Media/MediaUploader/MediaUploader";
 import { PostContainer } from "./Post.styles";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface BlogPostProps {
   author?: string;
@@ -10,18 +12,62 @@ interface BlogPostProps {
   content?: string;
 }
 
-const Post: React.FC<BlogPostProps> = ({ author, content }) => {
+const Post: React.FC<BlogPostProps> = ({ author }) => {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTitle(e.target.value);
+  };
+
+  const handlePublish = async (): Promise<void> => {
+    if (!title.trim() || !content.trim()) {
+      alert("Title and content are required!");
+      return;
+    }
+
+    const postData = { title, author, content };
+
+    try {
+      const response = await fetch(`${API_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to publish post");
+      }
+
+      setTitle("");
+      setContent("");
+    } catch (error) {
+      console.error("Error publishing post:", error);
+    }
+  };
+
   return (
     <PostContainer>
       <MediaUploader />
-      <input type="text" className="title" placeholder="Title" />
+      <input
+        type="text"
+        className="title"
+        placeholder="Title"
+        value={title}
+        onChange={handleTitleChange}
+      />
       {author && <h2 className="author">{author}</h2>}
       <RichTextEditor
         value={content || ""}
         onChange={() => {
-          handleInputChange;
+          setContent(content);
         }}
       />
+      <button onClick={handlePublish} className="publish-button">
+        Publish
+      </button>
     </PostContainer>
   );
 };
