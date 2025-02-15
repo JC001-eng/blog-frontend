@@ -12,9 +12,10 @@ interface BlogPostProps {
   content?: string;
 }
 
-const Post: React.FC<BlogPostProps> = ({ author }) => {
+const Post: React.FC<BlogPostProps> = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [author, setAuthor] = useState<string | null>(null);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value);
@@ -41,6 +42,10 @@ const Post: React.FC<BlogPostProps> = ({ author }) => {
         throw new Error("Failed to publish post");
       }
 
+      const data = await response.json();
+
+      setAuthor(data.user.userName);
+
       setTitle("");
       setContent("");
     } catch (error) {
@@ -58,11 +63,11 @@ const Post: React.FC<BlogPostProps> = ({ author }) => {
         value={title}
         onChange={handleTitleChange}
       />
-      {author && <h2 className="author">{author}</h2>}
+      {author && <h2 className="author">Written by: {author}</h2>}
       <RichTextEditor
         value={content || ""}
-        onChange={() => {
-          setContent(content);
+        onChange={(value) => {
+          setContent(value);
         }}
       />
       <button onClick={handlePublish} className="publish-button">
